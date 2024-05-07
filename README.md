@@ -19,7 +19,7 @@ followings consider at code
 14 chi-square calculation
 15 covariance
 16 co-variance
-17 binning methods for data smoothing (equş*deoth, bin means, bin boundaries)
+17 binning methods for data smoothing (equi-depth, bin means, bin boundaries)
 18 decision tree algorithm
 19 naive bayes classifier
 20 calssifier evaluation metrics: precision and recall and f-measures
