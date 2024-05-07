@@ -35,10 +35,13 @@ from sklearn.tree import DecisionTreeRegressor
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score, mean_poisson_deviance
+from sklearn.metrics.pairwise import cosine_similarity
+from scipy.stats import chi2_contingency
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from scipy.spatial.distance import euclidean, cityblock, chebyshev
 
 diamonds = pd.read_csv('https://raw.githubusercontent.com/pycaret/pycaret/master/datasets/diamond.csv')
 price = diamonds["Price"]
@@ -176,3 +179,40 @@ p = 2
 minkowski_distance = minkowski(vector_X, vector_Y, p)
 
 print("Minkowski distance between X and Y:", minkowski_distance)
+
+# Calculate the Euclidean distance
+euclidean_distance = euclidean(vector_X, vector_Y)
+
+print("Euclidean distance between X and Y:", euclidean_distance)
+
+manhattan_distance = cityblock(vector_X, vector_Y)
+
+print("Manhattan distance between X and Y:", manhattan_distance)
+
+supremum_distance = chebyshev(vector_X, vector_Y)
+
+print("Supremum distance between X and Y:", supremum_distance)
+
+vector_X = vector_X.reshape(1, -1)
+vector_Y = vector_Y.reshape(1, -1)
+
+# Calculate cosine similarity
+cos_sim = cosine_similarity(vector_X, vector_Y)[0][0]
+
+print("Cosine Similarity between vector A and vector B:", cos_sim)
+
+contingency_table = pd.crosstab(diamonds['Cut'], diamonds['Color'])
+
+# Calculate the chi-square statistic, p-value, degrees of freedom, and expected frequencies
+chi2_stat, p_val, dof, expected = chi2_contingency(contingency_table)
+
+print("Chi-square statistic:", chi2_stat)
+print("P-value:", p_val)
+print("Degrees of freedom:", dof)
+print("Expected frequencies:")
+print(expected)
+
+# Calculate covariance between two specific columns
+covariance = numerical_data['Carat Weight'].cov(numerical_data['Price'])
+
+print("Covariance between 'Carat Weight' and 'Price':", covariance)
